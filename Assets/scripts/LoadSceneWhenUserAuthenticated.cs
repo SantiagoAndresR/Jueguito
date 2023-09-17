@@ -24,4 +24,9 @@ public class LoadSceneWhenUserAuthenticated : MonoBehaviour
             SceneManager.LoadScene(_SceneToLoad);
         }
     }
+
+    void OnDestroy()
+    {
+       FirebaseAuth.DefaultInstance.StateChanged -= HandleAuthStateChange;
+    }
 }
