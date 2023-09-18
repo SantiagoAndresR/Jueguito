@@ -11,6 +11,10 @@ public class ScoreController : MonoBehaviour
     string UserId;
 
     int score = 0;
+
+    public Vector3 minPosition;
+    public Vector3 maxPosition;
+    public GameObject objectToClick;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,8 +22,42 @@ public class ScoreController : MonoBehaviour
         UserId = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
 
         GetUserScore();
+
+        minPosition = new Vector3(-5f, 0f, -5f);
+        maxPosition = new Vector3(5f, 0f, 5f);
+
+        MoveObjectToRandomPosition();
     }
 
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider != null && hit.collider.transform == objectToClick.transform)
+                {
+                    IncrementScore();
+
+                    MoveObjectToRandomPosition();
+                }
+            }
+        }
+    }
+
+    void MoveObjectToRandomPosition()
+    {
+        float randomX = Random.Range(minPosition.x, maxPosition.x);
+        float randomZ = Random.Range(minPosition.z, maxPosition.z);
+        Vector3 newPosition = new Vector3(randomX, objectToClick.transform.position.y, randomZ);
+
+        // Actualiza la posición del objeto
+        objectToClick.transform.position = newPosition;
+    }
 
 
     public void WriteNewScore(int score)
