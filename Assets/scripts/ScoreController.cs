@@ -75,7 +75,7 @@ public class ScoreController : MonoBehaviour
 
     public void IncrementScore()
     {
-        score += 100;
+        score += 1;
         GameObject.Find("LabelScore").GetComponent<TMPro.TMP_Text>().text = "Score: " + score;
         WriteNewScore(score);
     }
