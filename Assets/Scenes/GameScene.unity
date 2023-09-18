@@ -674,7 +674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfcd07894a06a2345984301cb5abd893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPosition: {x: 10, y: 6, z: 5}
+  minPosition: {x: 10, y: 5, z: 5}
   maxPosition: {x: -10, y: -2.5, z: -5}
   objectToClick: {fileID: 1079271224}
 --- !u!1 &1079271224
