@@ -33,8 +33,8 @@ public class ScoreController : MonoBehaviour
 
         GetUserScore();
 
-        minPosition = new Vector3(9f, 5f, 5f);
-        maxPosition = new Vector3(-9f, -2.5f, -5f);
+        minPosition = new Vector3(8f, 5f, 5f);
+        maxPosition = new Vector3(-8f, -2.5f, -5f);
 
         MoveObjectToRandomPosition();
     }
