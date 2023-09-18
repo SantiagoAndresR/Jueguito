@@ -9,7 +9,8 @@ using Firebase.Database;
 
 public class ButtonSignup : MonoBehaviour
 {
-    [SerializeField] private Button _registrationButton;
+    [SerializeField] 
+    private Button _registrationButton;
     private Coroutine _registrationCoroutine;
 
     void Reset()
