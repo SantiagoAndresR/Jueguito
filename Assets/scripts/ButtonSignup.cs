@@ -13,6 +13,8 @@ public class ButtonSignup : MonoBehaviour
     private Button _registrationButton;
     private Coroutine _registrationCoroutine;
 
+    private DatabaseReference mDatabaseRef;
+
     void Reset()
     {
         _registrationButton = GetComponent<Button>();
@@ -22,12 +24,14 @@ public class ButtonSignup : MonoBehaviour
     void Start()
     {
         _registrationButton.onClick.AddListener(HandleRegisterButtonClicked);
+        mDatabaseRef = FirebaseDatabase.DefaultInstance.RootReference;
     }
 
     private void HandleRegisterButtonClicked()
     {
         string email = GameObject.Find("InputEmail").GetComponent<TMP_InputField>().text;
         string password = GameObject.Find("InputPassword").GetComponent<TMP_InputField>().text;
+
         _registrationCoroutine = StartCoroutine(RegisterUser(email, password));
     }
 
@@ -49,10 +53,11 @@ public class ButtonSignup : MonoBehaviour
         {
             // Firebase user has been created.
             Firebase.Auth.AuthResult result = registerTask.Result;
-            Debug.LogFormat("Firebase user created successfully: {0} ({1})", result.User.DisplayName, result.User.UserId);
+            Debug.LogFormat("Firebase user created successfully: {0} ({1})", 
+                result.User.DisplayName, result.User.UserId);
 
             string name = GameObject.Find("InputUsername").GetComponent<TMP_InputField>().text;
-            nDatabaseRef.Child("users").Child(result.User.UserId).Child("username").SetValueAsync(name);
+            mDatabaseRef.Child("users").Child(result.User.UserId).Child("username").SetValueAsync(name);
         }
     }
 }
