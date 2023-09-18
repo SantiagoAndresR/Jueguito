@@ -99,7 +99,7 @@ public class ScoreController : MonoBehaviour
         int index = 0;
 
         FirebaseDatabase.DefaultInstance
-            .GetReference("users").OrderByChild("score").LimitToLast(5)
+            .GetReference("users").OrderByChild("score")
             .GetValueAsync().ContinueWithOnMainThread(task =>
             {
                 if (task.IsFaulted)
@@ -110,6 +110,8 @@ public class ScoreController : MonoBehaviour
                 {
                     DataSnapshot snapshot = task.Result;
 
+                    List<KeyValuePair<string, int>> userScores = new List<KeyValuePair<string, int>>();
+
                     foreach (var userDoc in (Dictionary<string, object>)snapshot.Value)
                     {
                         var userObject = (Dictionary<string, object>)userDoc.Value;
@@ -117,20 +119,30 @@ public class ScoreController : MonoBehaviour
                         int userScore = Convert.ToInt32(userObject["score"]);
                         Debug.Log(userObject["username"] + " : " + userObject["score"]);
 
-
-                        usernameTexts[index].text = username;
-                        scoreTexts[index].text = userScore.ToString();
-
-                        index++;
-
-                       leaderboardCanvas.gameObject.SetActive(true);
+                        userScores.Add(new KeyValuePair<string, int>(username, userScore));
                     }
 
+                  
+                    userScores.Sort((a, b) => b.Value.CompareTo(a.Value));
 
+                    foreach (var userScore in userScores)
+                    {
+                        string username = userScore.Key;
+                        int score = userScore.Value;
 
+                        
+                        usernameTexts[index].text = username;
+                        scoreTexts[index].text = score.ToString();
+
+                        index++;
+                    }
+
+                    
+                    leaderboardCanvas.gameObject.SetActive(true);
                 }
             });
     }
+
 
 
     public void IncrementScore()
