@@ -4,6 +4,11 @@ using Firebase.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System;
+using TMPro;
+
+
 
 public class ScoreController : MonoBehaviour
 {
@@ -15,7 +20,12 @@ public class ScoreController : MonoBehaviour
     public Vector3 minPosition;
     public Vector3 maxPosition;
     public GameObject objectToClick;
-    // Start is called before the first frame update
+
+    public Canvas leaderboardCanvas;
+    public List<TextMeshProUGUI> usernameTexts;
+    public List<TextMeshProUGUI> scoreTexts;
+
+
     void Start()
     {
         mDatabase = FirebaseDatabase.DefaultInstance.RootReference;
@@ -51,11 +61,11 @@ public class ScoreController : MonoBehaviour
 
     void MoveObjectToRandomPosition()
     {
-        float randomX = Random.Range(minPosition.x, maxPosition.x);
-        float randomZ = Random.Range(minPosition.z, maxPosition.z);
+        float randomX = UnityEngine.Random.Range(minPosition.x, maxPosition.x);
+        float randomZ = UnityEngine.Random.Range(minPosition.z, maxPosition.z);
+
         Vector3 newPosition = new Vector3(randomX, objectToClick.transform.position.y, randomZ);
 
-        // Actualiza la posición del objeto
         objectToClick.transform.position = newPosition;
     }
 
@@ -86,6 +96,8 @@ public class ScoreController : MonoBehaviour
     }
     public void GetUsersHighestScores()
     {
+        int index = 0;
+
         FirebaseDatabase.DefaultInstance
             .GetReference("users").OrderByChild("score").LimitToLast(5)
             .GetValueAsync().ContinueWithOnMainThread(task =>
@@ -101,7 +113,17 @@ public class ScoreController : MonoBehaviour
                     foreach (var userDoc in (Dictionary<string, object>)snapshot.Value)
                     {
                         var userObject = (Dictionary<string, object>)userDoc.Value;
+                        string username = userObject["username"].ToString();
+                        int userScore = Convert.ToInt32(userObject["score"]);
                         Debug.Log(userObject["username"] + " : " + userObject["score"]);
+
+
+                        usernameTexts[index].text = username;
+                        scoreTexts[index].text = userScore.ToString();
+
+                        index++;
+
+                       leaderboardCanvas.gameObject.SetActive(true);
                     }
 
 
