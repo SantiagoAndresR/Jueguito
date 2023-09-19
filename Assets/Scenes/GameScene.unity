@@ -1324,12 +1324,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079271224}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: -0.5, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
+  m_LocalPosition: {x: -493, y: -227, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1511821491}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!1 &1121294487
 GameObject:
@@ -1745,7 +1745,7 @@ GameObject:
   - component: {fileID: 1454223453}
   - component: {fileID: 1454223452}
   m_Layer: 5
-  m_Name: tabla de puntos
+  m_Name: Leaderboard Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1942,6 +1942,7 @@ RectTransform:
   - {fileID: 2122518461}
   - {fileID: 326151480}
   - {fileID: 1121294488}
+  - {fileID: 1079271228}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3058,4 +3059,3 @@ SceneRoots:
   - {fileID: 1511821491}
   - {fileID: 1454223455}
   - {fileID: 1861354781}
-  - {fileID: 1079271228}
