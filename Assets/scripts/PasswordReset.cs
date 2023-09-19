@@ -9,8 +9,11 @@ using Firebase.Database;
 
 public class PasswordReset : MonoBehaviour
 {
-    [SerializeField] private Button _resetPasswordButton;
-    [SerializeField] private TMP_InputField _emailInputField;
+    [SerializeField] 
+    private Button _resetPasswordButton;
+    
+    [SerializeField] 
+    private TMP_InputField _emailInputField;
 
     void Reset()
     {
